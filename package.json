@@ -1,6 +1,6 @@
 {
   "name": "cs2305.his",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "This is a Hospital Information System programmed by 蒋钦禹",
   "main": "main.js",
   "scripts": {
@@ -34,5 +34,9 @@
   },
   "config": {
     "forge": "./forge.config.js"
+  },
+  "build":{
+    "from":"./resources/file_server/file_server.exe",
+    "to":"./"
   }
 }

@@ -1,5 +1,6 @@
 // Modules to control application life and create native browser window
 const { app, BrowserWindow } = require('electron')
+if (require('electron-squirrel-startup')) app.quit();
 const path = require('path')
 function createWindow () {
  // Create the browser window.
@@ -23,9 +24,6 @@ const createPyProc = () => {
  let script = path.join(__dirname,'resources','file_server','file_server.exe')
  pyProc = require('child_process').execFile(script).pid
  }
-
-
-
 
 // This method will be called when Electron has finished
 // initialization and is ready to create browser windows.
