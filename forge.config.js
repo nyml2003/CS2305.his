@@ -1,5 +1,6 @@
 module.exports = {
-  packagerConfig: {},
+  packagerConfig: {
+  },
   rebuildConfig: {},
   makers: [
     {

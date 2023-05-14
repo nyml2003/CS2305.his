@@ -23,7 +23,6 @@ INSERT INTO Patient VALUES(501,'李秀','142203198803300432','0692015','33411119
 create table Patient_tel(
  Ptno int primary key AUTO_INCREMENT COMMENT '患者联系电话编号',
  Pno int not null COMMENT '患者编号',
- FOREIGN KEY(Pno) REFERENCES Patient(Pno),
  Pteltype varchar(20) not null COMMENT '联系方式类型',
  Ptel varchar(20) not null COMMENT '联系号码'
 ) COMMENT '患者联系电话';
@@ -31,48 +30,6 @@ create table Patient_tel(
 INSERT INTO Patient_tel(Pno, Pteltype, Ptel) VALUES(161,'手机','12988011007');
 INSERT INTO Patient_tel(Pno, Pteltype, Ptel) VALUES(161,'家庭电话','01166699988');
 INSERT INTO Patient_tel(Pno, Pteltype, Ptel) VALUES(161,'单位电话','01244552277');
-
-create table Salary(
- Sno int not null primary key,
- Slevel varchar(20) not null,
- Snumber DECIMAL(12,4) not null
-);
-
-INSERT INTO Salary VALUES(03,'高级',4000);
-INSERT INTO Salary VALUES(05,'中级',3000);
-INSERT INTO Salary VALUES(01,'高级',5000);
-INSERT INTO Salary VALUES(06,'初级',2500);
-INSERT INTO Salary VALUES(04,'高级',4500);
-
-create table Title(
- Tno int primary key not null,
- Sno int not null,
- FOREIGN KEY(Sno) REFERENCES Salary(Sno),
- Ttype varchar(20) not null,
- Ttrade varchar(20) not null
-);
-
-INSERT INTO Title VALUES(102,05,'医师','医疗');
-INSERT INTO Title VALUES(104,03,'副主任医师','医疗');
-INSERT INTO Title VALUES(103,04,'主治医师','医疗');
-INSERT INTO Title VALUES(105,01,'主任医师','医疗');
-INSERT INTO Title VALUES(233,06,'初级护师','护理');
-INSERT INTO Title VALUES(235,03,'主任护师','护理');
-
-CREATE TABLE Doctor (
-    Dno INT PRIMARY KEY,
-    Dname VARCHAR(20) NOT NULL,
-    Dsex VARCHAR(20) NOT NULL,
-    Dage INT NOT NULL,
-    Ddeptno INT NOT NULL,
-    Tno INT NOT NULL
-);
-
-INSERT INTO Doctor VALUES (140, '郝亦柯', '男', 28, 101, 01);
-INSERT INTO Doctor VALUES (21, '刘伟', '男', 43, 104, 01);
-INSERT INTO Doctor VALUES (368, '罗晓', '女', 27, 103, 04);
-INSERT INTO Doctor VALUES (73, '邓英超', '女', 43, 105, 33);
-INSERT INTO Doctor VALUES (82, '杨勋', '男', 104, 104, 35);
 
 CREATE TABLE Dept (
     DeptNo INT PRIMARY KEY NOT NULL,
@@ -89,10 +46,46 @@ INSERT INTO Dept VALUES (103, '门内三诊室', 10, 21);
 INSERT INTO Dept VALUES (20, '社区医疗部', 00, NULL);
 INSERT INTO Dept VALUES (201, '家庭病床病区', 20, 73);
 
-ALTER TABLE Doctor ADD FOREIGN KEY (Ddeptno) REFERENCES Dept (DeptNo);
-ALTER TABLE Doctor ADD FOREIGN KEY (Tno) REFERENCES Title (Tno);
-ALTER TABLE Dept ADD FOREIGN KEY (ParentDeptNo) REFERENCES Dept (DeptNo);
-ALTER TABLE Dept ADD FOREIGN KEY (Manager) REFERENCES Doctor (Dno);
+CREATE TABLE Doctor (
+    Dno INT PRIMARY KEY,
+    Dname VARCHAR(20) NOT NULL,
+    Dsex VARCHAR(20) NOT NULL,
+    Dage INT NOT NULL,
+    Ddeptno INT NOT NULL,
+    Tno INT NOT NULL
+);
+
+INSERT INTO Doctor VALUES (140, '郝亦柯', '男', 28, 101, 01);
+INSERT INTO Doctor VALUES (21, '刘伟', '男', 43, 104, 01);
+INSERT INTO Doctor VALUES (368, '罗晓', '女', 27, 103, 04);
+INSERT INTO Doctor VALUES (73, '邓英超', '女', 43, 105, 33);
+INSERT INTO Doctor VALUES (82, '杨勋', '男', 104, 104, 35);
+
+create table Title(
+ Tno int primary key not null,
+ Sno int not null,
+ Ttype varchar(20) not null,
+ Ttrade varchar(20) not null
+);
+
+INSERT INTO Title VALUES(102,05,'医师','医疗');
+INSERT INTO Title VALUES(104,03,'副主任医师','医疗');
+INSERT INTO Title VALUES(103,04,'主治医师','医疗');
+INSERT INTO Title VALUES(105,01,'主任医师','医疗');
+INSERT INTO Title VALUES(233,06,'初级护师','护理');
+INSERT INTO Title VALUES(235,03,'主任护师','护理');
+
+create table Salary(
+ Sno int not null primary key,
+ Slevel varchar(20) not null,
+ Snumber DECIMAL(12,4) not null
+);
+
+INSERT INTO Salary VALUES(03,'高级',4000);
+INSERT INTO Salary VALUES(05,'中级',3000);
+INSERT INTO Salary VALUES(01,'高级',5000);
+INSERT INTO Salary VALUES(06,'初级',2500);
+INSERT INTO Salary VALUES(04,'高级',4500);
 
 create table Godown_Entry(
  GMno int not null primary key,
@@ -100,12 +93,33 @@ create table Godown_Entry(
  GMname varchar(20) not null
 );
 
+INSERT INTO Godown_Entry VALUES(1,'2016-1-2 13:00:12','抗生素类药品');
+INSERT INTO Godown_Entry VALUES(12,'2016-11-24 18:00:00','心脑血管用药');
+INSERT INTO Godown_Entry VALUES(31,'2017-1-14 9:02:01','消化系统用药');
+INSERT INTO Godown_Entry VALUES(34,'2017-3-20 12:19:10','呼吸系统用药');
+
+INSERT INTO Godown_Entry VALUES(2,'2016-1-3 14:00:00','泌尿系统用药');
+INSERT INTO Godown_Entry VALUES(11,'2016-11-20 18:00:00','血液系统用药');
+INSERT INTO Godown_Entry VALUES(3,'2016-1-10 09:10:22','抗风湿类药品');
+INSERT INTO Godown_Entry VALUES(9,'2016-4-27 13:20:00','注射剂类药品');
+
+INSERT INTO Godown_Entry VALUES(14,'2016-12-20 17:00:31 ','激素类药品');
+INSERT INTO Godown_Entry VALUES(4,'2016-1-12 20:10:02','皮肤科用药');
+INSERT INTO Godown_Entry VALUES(6,'2016-4-27 13:20:00','妇科用药');
+INSERT INTO Godown_Entry VALUES(7,'2016-5-10 18:30:05','抗肿瘤用药');
+
+INSERT INTO Godown_Entry VALUES(13,'2016-12-01 12:15:00','抗精神病药品');
+INSERT INTO Godown_Entry VALUES(8,'2016-6-06 15:50:20','清热解毒药品');
+INSERT INTO Godown_Entry VALUES(33,'2017-2-24 8:02:52','维生素、矿物质药品');
+INSERT INTO Godown_Entry VALUES(32,'2017-1-19 7:22:00','糖尿病药品');
+
+INSERT INTO Godown_Entry VALUES(17,'2019-12-30 0:0:0','肾石通');
+INSERT INTO Godown_Entry VALUES(25,'2022-6-30 0:0:0','阿奇霉素');
+
 create table Godown_Slave(
  GSno int not null primary key,
  GMno int not null,
- FOREIGN KEY(GMno) REFERENCES Godown_Entry(GMno),
  Mno int not null,
- FOREIGN KEY(Mno) REFERENCES Medicine(Mno),
  GSnumber DECIMAL(12,4) not null,
  GSunit varchar(20) not null,
  GSbatch varchar(20) not null,
@@ -113,21 +127,33 @@ create table Godown_Slave(
  GSexpdate date not null
 );
 
+INSERT INTO Godown_Slave VALUES(02,17,314941,23,'箱',232342345,3000,'2019-12-30');
+INSERT INTO Godown_Slave VALUES(12,1,315189,50,'箱',345465675,2560,'2020-12-30');
+INSERT INTO Godown_Slave VALUES(34,12,314172,100,'盒',678786994,50300,'2022-3-10');
+INSERT INTO Godown_Slave VALUES(55,25,315501,85,'盒',534525342,1450,'2022-6-20');
+INSERT INTO Godown_Slave VALUES(114,31,315977,120,'盒',114514191,9810,'2023-1-1');
+INSERT INTO Godown_Slave VALUES(514,2,316910,77,'盒',191981011,4514,'2022-1-1');
+
 create table Medicine(
  Mno int not null primary key,
  GSno int not null,
- FOREIGN KEY(GSno) REFERENCES Godown_Slave(GSno),
  Mname varchar(20) not null,
  Mprice DECIMAL(12,4) not null,
  Munit varchar(20) not null,
  Mtype varchar(20) not null
 );
 
-INSRT INTO Medicine VALUES(314172,12,'',0.037,'片','西药');
+INSERT INTO Medicine VALUES(314172,34,'卡托普利片',0.037,'片','西药');
+INSERT INTO Medicine VALUES(314941,02,'肾石通颗粒',27.1,'盒','西药');
+INSERT INTO Medicine VALUES(315189,12,'心胃止痛胶囊',26.9,'盒','西药');
+INSERT INTO Medicine VALUES(315501,55,'阿奇霉素胶囊',21,'盒','西药');
+INSERT INTO Medicine VALUES(315977,114,'胃立康片',26.5,'盒','西药');
+INSERT INTO Medicine VALUES(316910,514,'依诺沙星注射液',46,'支','西药');
 
 create table Cashier(
  Cno int not null primary key
 );
+
 INSERT INTO Cashier VALUES(09);
 INSERT INTO Cashier VALUES(01);
 INSERT INTO Cashier VALUES(02);
@@ -137,9 +163,7 @@ INSERT INTO Cashier VALUES(08);
 create table Diagnosis(
  DGno varchar(20) primary key not null,
  Pno int not null,
- FOREIGN KEY(Pno) REFERENCES Patient(Pno),
  Dno varchar(20) not null,
- FOREIGN KEY(Dno) REFERENCES Doctor(Dno),
  Symptom varchar(20) not null,
  Diagnosis varchar(20) not null,
  DGtime DATETIME not null,
@@ -156,11 +180,8 @@ INSERT INTO Diagnosis VALUES(7816,421,368,'肾盂结石','肾结石','2017-1-8 0
 create table Recipe_Master(
   RMno int not null primary key,
   DeptNo int not null,
-  FOREIGN KEY(DeptNo) REFERENCES Dept(DeptNo),
   Dno int not null,
-  FOREIGN KEY(Dno) REFERENCES Doctor(Dno),
   Pno int not null,
-  FOREIGN KEY(Pno) REFERENCES Patient(Pno),
   RMage int not null,
   RMtime DATETIME not null
 );
@@ -175,9 +196,7 @@ INSERT INTO Recipe_Master VALUES(1458878,102,82,421,30,'2017-1-8 05:17:03');
 create table Recipe_Detail(
  RDno int not null primary key,
  RMno int not null,
- FOREIGN KEY(RMno) REFERENCES Recipe_Master(RMno),
  Mno int not null,
- FOREIGN KEY(Mno) REFERENCES Medicine(Mno),
  RDprice DECIMAL(12,4) not null,
  RDnumber int not null,
  RDunit varchar(20) not null
@@ -191,13 +210,9 @@ INSERT INTO Recipe_Detail VALUES(89,1282317,316910,2.5,10,'粒');
 create table Register_Form(
  RFno int not null primary key,
  RFdept int not null,
- FOREIGN KEY(RFdept) REFERENCES Dept(DeptNo),
  RFdoctor int not null,
- FOREIGN KEY(RFdoctor) REFERENCES Doctor(Dno),
  RFpatient int not null,
- FOREIGN KEY(RFpatient) REFERENCES Patient(Pno),
  RFcashier int not null,
- FOREIGN KEY(RFcashier) REFERENCES Cashier(Cno),
  RFtime DATETIME not null,
  RFvisittime DATETIME not null,
  RFfee DECIMAL(12,4) not null,
@@ -214,13 +229,9 @@ create table Fee(
  Fnumber varchar(20) not null,
  Fdate DATETIME not null,
  DGno int not null,
- FOREIGN KEY(DGno) REFERENCES Diagnosis(DGno),
  RMno int not null,
- FOREIGN KEY(RMno) REFERENCES Recipe_Master(RMno),
  Cno int not null,
- FOREIGN KEY(Cno) REFERENCES Cashier(Cno),  
  Pno int not null,
- FOREIGN KEY(Pno) REFERENCES Patient(Pno),
  FRecipefee DECIMAL(12,4) not null,
  Fdiscount DECIMAL(12,4) not null,
  Fsum DECIMAL(12,4) not null
@@ -233,7 +244,32 @@ INSERT INTO Fee VALUES(1283308,'02995687','2016-7-23 11:11:34',3308,1284041,05,2
 INSERT INTO Fee VALUES(1283523,'02997432','2016-7-23 02:01:05',3523,1284256,08,481,13,0,13);
 INSERT INTO Fee VALUES(1457816,'02990101','2017-1-8 05:17:03',3265,1458878,09,21,111,0,111);
 
+ 
+  
+ALTER TABLE Patient_tel ADD FOREIGN KEY(Pno) REFERENCES Patient(Pno);   
+ALTER TABLE Dept ADD FOREIGN KEY (ParentDeptNo) REFERENCES Dept (DeptNo);
+ALTER TABLE Dept ADD FOREIGN KEY (Manager) REFERENCES Doctor (Dno);
+ALTER TABLE Doctor ADD FOREIGN KEY (Ddeptno) REFERENCES Dept (DeptNo);
+ALTER TABLE Doctor ADD FOREIGN KEY (Tno) REFERENCES Title (Tno);
+ALTER TABLE Title ADD FOREIGN KEY(Sno) REFERENCES Salary(Sno);
+ALTER TABLE Godown_Slave ADD FOREIGN KEY(GMno) REFERENCES Godown_Entry(GMno);
+ALTER TABLE Godown_Slave ADD FOREIGN KEY(Mno) REFERENCES Medicine(Mno);
+ALTER TABLE Medicine ADD FOREIGN KEY(GSno) REFERENCES Godown_Slave(GSno);
+ALTER TABLE Diagnosis ADD FOREIGN KEY(Pno) REFERENCES Patient(Pno);
+ALTER TABLE Diagnosis ADD FOREIGN KEY(Dno) REFERENCES Doctor(Dno);
+ALTER TABLE Recipe_Master ADD FOREIGN KEY(DeptNo) REFERENCES Dept(DeptNo);
+ALTER TABLE Recipe_Master ADD FOREIGN KEY(Dno) REFERENCES Doctor(Dno);
+ALTER TABLE Recipe_Master ADD FOREIGN KEY(Pno) REFERENCES Patient(Pno);
+ALTER TABLE Recipe_Detail ADD FOREIGN KEY(RMno) REFERENCES Recipe_Master(RMno);
+ALTER TABLE Recipe_Detail ADD FOREIGN KEY(Mno) REFERENCES Medicine(Mno);
+ALTER TABLE Register_Form ADD FOREIGN KEY(RFdept) REFERENCES Dept(DeptNo);
+ALTER TABLE Register_Form ADD FOREIGN KEY(RFdoctor) REFERENCES Doctor(Dno);
+ALTER TABLE Register_Form ADD FOREIGN KEY(RFpatient) REFERENCES Patient(Pno);
+ALTER TABLE Register_Form ADD FOREIGN KEY(RFcashier) REFERENCES Cashier(Cno);
+ALTER TABLE Fee ADD FOREIGN KEY(DGno) REFERENCES Diagnosis(DGno);
+ALTER TABLE Fee ADD FOREIGN KEY(RMno) REFERENCES Recipe_Master(RMno);
+ALTER TABLE Fee ADD FOREIGN KEY(Cno) REFERENCES Cashier(Cno);
+ALTER TABLE Fee ADD FOREIGN KEY(Pno) REFERENCES Patient(Pno);
 """
-# FOREIGN KEY() REFERENCES (),
 ret=db.execute(sql)
 print(ret)

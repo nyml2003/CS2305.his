@@ -20,7 +20,7 @@ function createWindow () {
  
 
 const createPyProc = () => {
- let script = path.join(__dirname,'resources','file_server.exe')
+ let script = path.join(__dirname,'resources','file_server','file_server.exe')
  pyProc = require('child_process').execFile(script).pid
  }
 

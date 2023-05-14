@@ -7,7 +7,7 @@
     "start": "electron-forge start",
     "package": "electron-forge package",
     "make": "electron-forge make",
-    "build-python": "pyinstaller -F -w ./py/file_server.py  --distpath resources --clean"
+    "build-python": "pyinstaller -w ./py/file_server.py  --distpath resources --clean"
   },
   "repository": "https://github.com/electron/electron-quick-start",
   "keywords": [
