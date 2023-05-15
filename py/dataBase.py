@@ -7,7 +7,7 @@ class DataBase():
             port = 3306, 
             user="root",
             password="uestc2022!",
-            database="CS2305.his",
+            database="cs2305.his",
             charset="utf8",
             client_flag=CLIENT.MULTI_STATEMENTS
         )
@@ -25,6 +25,12 @@ class DataBase():
     def getTable(self,TABLE_NAME):
         self.cursor = self.conn.cursor(pymysql.cursors.DictCursor)
         self.cursor.execute(f"SELECT * FROM {TABLE_NAME}")
+        ret = self.cursor.fetchall()
+        self.cursor.close()
+        return ret
+    def getView(self,VIEW_NAME):
+        self.cursor = self.conn.cursor(pymysql.cursors.DictCursor)
+        self.cursor.execute(f"SELECT * FROM {VIEW_NAME}")
         ret = self.cursor.fetchall()
         self.cursor.close()
         return ret

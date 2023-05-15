@@ -7,7 +7,11 @@ CORS(app)
 @app.route('/api/AllPatientData',methods=['GET'])
 def getAllPatientData():
     db=DataBase()
-    return jsonify(db.getTable("Patient"))
+    return jsonify(db.getView("patientallinformation_view"))
+@app.route('/api/AllDeptData',methods=['GET'])
+def getAllDeptData():
+    db=DataBase()
+    return jsonify(db.getView("`deptview`"))
 @app.route('/api/shutdown',methods=['POST'])
 def shutdown():
     server.stop()
