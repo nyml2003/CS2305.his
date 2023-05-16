@@ -11,10 +11,10 @@ class DataBase():
             charset="utf8",
             client_flag=CLIENT.MULTI_STATEMENTS
         )
-        self.cursor = self.conn.cursor()
-    def execute(self,sql):
+        self.cursor = self.conn.cursor(pymysql.cursors.DictCursor)
+    def execute(self,sql, params=None):
         try: 
-            self.cursor.execute(sql)
+            self.cursor.execute(sql,params)
             self.conn.commit()
         except:
             self.conn.rollback()
@@ -22,20 +22,17 @@ class DataBase():
         self.cursor.close()
         self.conn.close()
         return ret
-    def getTable(self,TABLE_NAME):
-        self.cursor = self.conn.cursor(pymysql.cursors.DictCursor)
-        self.cursor.execute(f"SELECT * FROM {TABLE_NAME}")
-        ret = self.cursor.fetchall()
-        self.cursor.close()
-        return ret
-    def getView(self,VIEW_NAME):
-        self.cursor = self.conn.cursor(pymysql.cursors.DictCursor)
-        self.cursor.execute(f"SELECT * FROM {VIEW_NAME}")
-        ret = self.cursor.fetchall()
-        self.cursor.close()
-        return ret
-    def close(self):
-        self.cursor.close()
-        self.conn.close()
+    def getTable(self,table):
+        sql=f"SELECT * FROM {table}"
+        return self.execute(sql)
+    def update(self,table,id,col,value):
+        sql = f"SELECT {col} FROM {table} WHERE id = %s"
+        res = self.execute(sql, (id,))
+        if res is not None and res[0] == value:
+            return
+        else:
+            sql = f"UPDATE {table} SET {col} = %s WHERE id = %s"
+            self.cursor.execute(sql,(value,id))
+            return
 
 
