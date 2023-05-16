@@ -12,8 +12,11 @@ def getAllPatientData():
 def getAllDeptData():
     db=DataBase()
     return jsonify(db.getView("`deptview`"))
+@app.route('/api/AllDoctorData',methods=['GET'])
+def getAllDoctorData():
+    return jsonify(DataBase().getTable("`cs2305.doctor`"))
 @app.route('/api/shutdown',methods=['POST'])
-def shutdown():
+def shutdown():                       
     server.stop()
     return jsonify({"content":"stop the server"})
 with app.app_context():
