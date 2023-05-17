@@ -9,7 +9,7 @@ create table `cs2305.Patient`(
  Pino varchar(20) not null COMMENT '社会保险号',
  Pmno varchar(20) not null COMMENT '医疗卡识别号',
  Psex varchar(20) not null COMMENT '性别',
- Pbd date not null COMMENT '出生日期',
+ Pbd datetime not null COMMENT '出生日期',
  Padd varchar(100) not null COMMENT '地址'
 ) COMMENT '患者';
 INSERT INTO `cs2305.Patient` VALUES(161,'刘景','142201198702130061','1201676','6781121941','男','1987-2-13','新华路光源街');

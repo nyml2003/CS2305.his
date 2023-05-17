@@ -1,18 +1,20 @@
 from flask import Flask, jsonify,request
 from dataBase import DataBase
 from gevent import pywsgi
-from flask.json import JSONEncoder
 from flask_cors import CORS
-from datetime import date
-
-class CustomJSONEncoder(JSONEncoder):
+from datetime import date,datetime,timedelta
+from flask.json.provider import DefaultJSONProvider
+from pytz import timezone
+class UpdatedJSONProvider(DefaultJSONProvider):
     def default(self, obj):
+        if isinstance(obj, datetime):
+            return obj.strftime('%Y-%m-%d %H:%M:%S')
         if isinstance(obj, date):
-            return obj.isoformat()
-        return JSONEncoder.default(self, obj)
+            return obj.strftime('%Y-%m-%d')
+        return super(DefaultJSONProvider, self).default(obj)
 
 app = Flask(__name__)
-app.json_encoder = CustomJSONEncoder
+app.json = UpdatedJSONProvider(app)
 CORS(app)
 # @app.route('/api/AllPatientData',methods=['GET'])
 # def getAllPatientData():
@@ -34,17 +36,21 @@ CORS(app)
 def getTable():
     table=request.get_json()['table']
     return jsonify(DataBase().getTable(table))
-
-@app.route('/api/test',methods=['GET'])
-def test():
-    table="`cs2305.patient`"
-    return jsonify(DataBase().getTable(table))
-
 @app.route('/api/update',methods=['POST'])
 def update():
     cmd=request.get_json()
-    table,id,col,value=cmd['table'],cmd['id'],cmd['col'],cmd['value']
-    return jsonify(DataBase().update(table,id,col,value))
+    table,id,col,value,pk=cmd['table'],cmd['id'],cmd['col'],cmd['value'],cmd['pk']
+    return jsonify(DataBase().update(table,id,col,value,pk))
+@app.route('/api/delete',methods=['POST'])
+def delete():
+    cmd=request.get_json()
+    table,id,pk=cmd['table'],cmd['id'],cmd['pk']
+    return jsonify(DataBase().delete(table,id,pk))
+@app.route('/api/insert',methods=['POST'])
+def insert():
+    cmd=request.get_json()
+    table,values=cmd['table'],cmd['values']
+    return jsonify(DataBase().insert(table,values))
 @app.route('/api/shutdown',methods=['POST'])
 def shutdown():                       
     server.stop()
