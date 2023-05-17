@@ -137,7 +137,7 @@ INSERT INTO `cs2305.Cashier` VALUES(02);
 INSERT INTO `cs2305.Cashier` VALUES(05);
 INSERT INTO `cs2305.Cashier` VALUES(08);
 create table `cs2305.Diagnosis`(
- DGno varchar(20) primary key not null,
+ DGno int primary key not null,
  Pno int not null,
  Dno varchar(20) not null,
  Symptom varchar(20) not null,
@@ -210,7 +210,7 @@ INSERT INTO `cs2305.Fee` VALUES(1283265,'02996768','2016-7-23 10:59:42',2170,128
 INSERT INTO `cs2305.Fee` VALUES(1283308,'02995687','2016-7-23 11:11:34',3308,1284041,05,201,17,3.4,13.6);
 INSERT INTO `cs2305.Fee` VALUES(1283523,'02997432','2016-7-23 02:01:05',3523,1284256,08,481,13,0,13);
 INSERT INTO `cs2305.Fee` VALUES(1457816,'02990101','2017-1-8 05:17:03',3265,1458878,09,21,111,0,111); 
-ALTER TABLE `cs2305.Patient`_tel ADD FOREIGN KEY(Pno) REFERENCES `cs2305.Patient`(Pno);   
+ALTER TABLE `cs2305.Patient_tel` ADD FOREIGN KEY(Pno) REFERENCES `cs2305.Patient`(Pno);   
 ALTER TABLE `cs2305.Dept` ADD FOREIGN KEY (ParentDeptNo) REFERENCES `cs2305.Dept` (DeptNo);
 ALTER TABLE `cs2305.Dept` ADD FOREIGN KEY (Manager) REFERENCES `cs2305.Doctor` (Dno);
 ALTER TABLE `cs2305.Doctor` ADD FOREIGN KEY (Ddeptno) REFERENCES `cs2305.Dept` (DeptNo);

@@ -4,14 +4,22 @@ from gevent import pywsgi
 from flask_cors import CORS
 from datetime import date,datetime,timedelta
 from flask.json.provider import DefaultJSONProvider
-from pytz import timezone
+from decimal import Decimal
+# from pytz import timezone
 class UpdatedJSONProvider(DefaultJSONProvider):
     def default(self, obj):
-        if isinstance(obj, datetime):
-            return obj.strftime('%Y-%m-%d %H:%M:%S')
-        if isinstance(obj, date):
-            return obj.strftime('%Y-%m-%d')
-        return super(DefaultJSONProvider, self).default(obj)
+        try:
+            if isinstance(obj, datetime):
+                return obj.strftime('%Y-%m-%d %H:%M:%S')
+            elif isinstance(obj, date):
+                return obj.strftime('%Y-%m-%d')
+            elif isinstance(obj,Decimal):
+                return str(obj)
+            return super(DefaultJSONProvider, self).default(obj)
+        except Exception as e:
+            print(obj)
+            print(type(obj))
+            
 
 app = Flask(__name__)
 app.json = UpdatedJSONProvider(app)
