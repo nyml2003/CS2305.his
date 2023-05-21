@@ -2,27 +2,21 @@ from dataBase import DataBase
 
 db=DataBase()
 sql = """
-CREATE VIEW PatientAllInformation_view AS
-SELECT P.Pno, P.Pname, P.Pid, P.Pino, P.Pmno, P.Psex,
-DATE_FORMAT(P.Pbd, '%Y-%m-%d') AS Pbd,
-P.Padd,
-MAX(CASE WHEN Pt.Pteltype = '手机' THEN Pt.Ptel END) AS 手机,
-MAX(CASE WHEN Pt.Pteltype = '家庭电话' THEN Pt.Ptel END) AS 家庭电话,
-MAX(CASE WHEN Pt.Pteltype = '单位电话' THEN Pt.Ptel END) AS 单位电话
-FROM `cs2305.Patient` P
-LEFT JOIN `cs2305.Patient_tel` Pt
-ON P.Pno = Pt.Pno
-GROUP BY P.Pno;
+DROP VIEW if exists patient_info;
+CREATE VIEW patient_info AS
+SELECT * 
+FROM `cs2305.Patient`;
 
-
-
-CREATE VIEW DeptView AS
-SELECT D.DeptNo, D.DeptName, P.DeptName AS ParentDeptName, M.Dname AS ManagerName
-FROM `cs2305.Dept` D
-LEFT JOIN `cs2305.Dept` P
-ON D.ParentDeptNo = P.DeptNo
-LEFT JOIN `cs2305.Doctor` M
-ON D.Manager = M.Dno;
+DROP VIEW if exists doctor_info;
+CREATE VIEW doctor_info AS
+SELECT D.Dno, D.Dname, D.Dsex, D.Dage, D.Ddeptno, T.Tno, Dept.DeptName,T.Ttype, T.Ttrade, S.Slevel, S.Snumber
+FROM `cs2305.Doctor` D
+JOIN `cs2305.Title` T
+ON D.Tno = T.Tno
+JOIN `cs2305.Salary` S
+ON T.Sno = S.Sno
+JOIN `cs2305.Dept` Dept
+ON D.Ddeptno = Dept.DeptNo
 """
 ret=db.execute(sql)
 print(ret)

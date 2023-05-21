@@ -27,18 +27,18 @@ class DataBase():
     def getTable(self,table):
         sql=f"SELECT * FROM {table}"
         return self.execute(sql)
+    def getView(self,view):
+        sql=f"SELECT * FROM {view}"
+        return self.execute(sql)
     def update(self, table, id, col, value,pk):
         sql = f"UPDATE {table} SET {col} = %s WHERE {pk} = %s"
-        self.execute(sql, (value, id))
-        return {"error": "success"}
+        return self.execute(sql, (value, id))
     def delete(self,table,id,pk):
         sql = f"DELETE FROM {table} WHERE {pk} = %s"
-        self.execute(sql, (id,))
-        return {"error": "success"}
+        return self.execute(sql, (id,))
     def insert(self,table,values):
         sql = f"INSERT INTO {table} VALUES ({','.join(['%s']*len(values))})"
-        self.execute(sql, values)
-        return {"error": "success"}
+        return self.execute(sql, values)
 
 
 # import pymysql

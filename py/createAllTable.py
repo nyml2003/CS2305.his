@@ -9,24 +9,16 @@ create table `cs2305.Patient`(
  Pino varchar(20) not null COMMENT '社会保险号',
  Pmno varchar(20) not null COMMENT '医疗卡识别号',
  Psex varchar(20) not null COMMENT '性别',
- Pbd datetime not null COMMENT '出生日期',
- Padd varchar(100) not null COMMENT '地址'
+ Pbd date not null COMMENT '出生日期',
+ Padd varchar(100) not null COMMENT '地址',
+ Ptel varchar(20) not null COMMENT '电话号码'
 ) COMMENT '患者';
-INSERT INTO `cs2305.Patient` VALUES(161,'刘景','142201198702130061','1201676','6781121941','男','1987-2-13','新华路光源街');
-INSERT INTO `cs2305.Patient` VALUES(181,'陈禄','142201196608190213','1204001','5461021938','男','1966-8-19','城建路茂源路');
-INSERT INTO `cs2305.Patient` VALUES(201,'曾华','142201197803110234','0800920','1231111932','男','1978-3-11','新建路柳巷');
-INSERT INTO `cs2305.Patient` VALUES(421,'傅伟相','142202199109230221','0700235','4901021947','男','1991-9-23','高新区西源大道');
-INSERT INTO `cs2305.Patient` VALUES(481,'张珍','142201199206200321','1200432','3451121953','女','1992-6-20','西湖区南街');
-INSERT INTO `cs2305.Patient` VALUES(501,'李秀','142203198803300432','0692015','3341111936','女','1988-3-30','泰山大道北路');
-create table `cs2305.Patient_tel`(
- Ptno int primary key AUTO_INCREMENT COMMENT '患者联系电话编号',
- Pno int not null COMMENT '患者编号',
- Pteltype varchar(20) not null COMMENT '联系方式类型',
- Ptel varchar(20) not null COMMENT '联系号码'
-) COMMENT '患者联系电话';
-INSERT INTO `cs2305.Patient_tel`(Pno, Pteltype, Ptel) VALUES(161,'手机','12988011007');
-INSERT INTO `cs2305.Patient_tel`(Pno, Pteltype, Ptel) VALUES(161,'家庭电话','01166699988');
-INSERT INTO `cs2305.Patient_tel`(Pno, Pteltype, Ptel) VALUES(161,'单位电话','01244552277');
+INSERT INTO `cs2305.Patient` VALUES(161,'刘景','142201198702130061','1201676','6781121941','男','1987-2-13','新华路光源街',13946186669);
+INSERT INTO `cs2305.Patient` VALUES(181,'陈禄','142201196608190213','1204001','5461021938','男','1966-8-19','城建路茂源路',13774645067);
+INSERT INTO `cs2305.Patient` VALUES(201,'曾华','142201197803110234','0800920','1231111932','男','1978-3-11','新建路柳巷',13917291237);
+INSERT INTO `cs2305.Patient` VALUES(421,'傅伟相','142202199109230221','0700235','4901021947','男','1991-9-23','高新区西源大道',13917291237);
+INSERT INTO `cs2305.Patient` VALUES(481,'张珍','142201199206200321','1200432','3451121953','女','1992-6-20','西湖区南街',13716307270);
+INSERT INTO `cs2305.Patient` VALUES(501,'李秀','142203198803300432','0692015','3341111936','女','1988-3-30','泰山大道北路',15255382804 );
 CREATE TABLE `cs2305.Dept` (
     DeptNo INT PRIMARY KEY NOT NULL,
     DeptName VARCHAR(20) NOT NULL,
@@ -37,8 +29,8 @@ INSERT INTO `cs2305.Dept` VALUES (00, 'XX医院', NULL, NULL);
 INSERT INTO `cs2305.Dept` VALUES (10, '门诊部', 00, NULL);
 INSERT INTO `cs2305.Dept` VALUES (101, '消化内科', 10, 82);
 INSERT INTO `cs2305.Dept` VALUES (102, '急诊内科', 10, 368);
-INSERT INTO `cs2305.Dept` VALUES (103, '门内三诊室', 10, 21);
-INSERT INTO `cs2305.Dept` VALUES (20, '社区医疗部', 00, NULL);
+INSERT INTO `cs2305.Dept` VALUES (103, '门内三诊室', 10, 371);
+INSERT INTO `cs2305.Dept` VALUES (20, '社区医疗部', 00, 21);
 INSERT INTO `cs2305.Dept` VALUES (201, '家庭病床病区', 20, 73);
 CREATE TABLE `cs2305.Doctor` (
     Dno INT PRIMARY KEY,
@@ -48,11 +40,14 @@ CREATE TABLE `cs2305.Doctor` (
     Ddeptno INT NOT NULL,
     Tno INT NOT NULL
 );
-INSERT INTO `cs2305.Doctor` VALUES (140, '郝亦柯', '男', 28, 101, 01);
-INSERT INTO `cs2305.Doctor` VALUES (21, '刘伟', '男', 43, 104, 01);
-INSERT INTO `cs2305.Doctor` VALUES (368, '罗晓', '女', 27, 103, 04);
-INSERT INTO `cs2305.Doctor` VALUES (73, '邓英超', '女', 43, 105, 33);
-INSERT INTO `cs2305.Doctor` VALUES (82, '杨勋', '男', 104, 104, 35);
+INSERT INTO `cs2305.Doctor` VALUES (140, '郝亦柯', '男', 28, 102, 102);
+INSERT INTO `cs2305.Doctor` VALUES (21, '刘伟', '男', 43, 20, 104);
+INSERT INTO `cs2305.Doctor` VALUES (368, '罗晓', '女', 27, 102, 103);
+INSERT INTO `cs2305.Doctor` VALUES (73, '邓英超', '女', 43, 201, 105);
+INSERT INTO `cs2305.Doctor` VALUES (82, '杨勋', '男', 36, 101, 104);
+INSERT INTO `cs2305.Doctor` VALUES (153, '希何芊', '女', 39, 201, 104);
+INSERT INTO `cs2305.Doctor` VALUES (371, '季仁', '男', 30, 103, 102);
+INSERT INTO `cs2305.Doctor` VALUES (372, '钟炎', '男', 45, 101, 105);
 create table `cs2305.Title`(
  Tno int primary key not null,
  Sno int not null,
@@ -139,7 +134,7 @@ INSERT INTO `cs2305.Cashier` VALUES(08);
 create table `cs2305.Diagnosis`(
  DGno int primary key not null,
  Pno int not null,
- Dno varchar(20) not null,
+ Dno int not null,
  Symptom varchar(20) not null,
  Diagnosis varchar(20) not null,
  DGtime DATETIME not null,
@@ -206,11 +201,10 @@ create table `cs2305.Fee`(
 );
 INSERT INTO `cs2305.Fee` VALUES(1281645,'02995606','2016-7-21 01:12:01',1645,1282317,09,181,200,0,200);
 INSERT INTO `cs2305.Fee` VALUES(1282170,'02994356','2016-7-22 10:10:03',7816,1282872,01,481,189,37.8,151.2);
-INSERT INTO `cs2305.Fee` VALUES(1283265,'02996768','2016-7-23 10:59:42',2170,1283998,02,501,560,112,448);
+INSERT INTO `cs2305.Fee` VALUES(1283265,'02996768','2016-7-23 10:59:42',2170,1283398,02,501,560,112,448);
 INSERT INTO `cs2305.Fee` VALUES(1283308,'02995687','2016-7-23 11:11:34',3308,1284041,05,201,17,3.4,13.6);
 INSERT INTO `cs2305.Fee` VALUES(1283523,'02997432','2016-7-23 02:01:05',3523,1284256,08,481,13,0,13);
-INSERT INTO `cs2305.Fee` VALUES(1457816,'02990101','2017-1-8 05:17:03',3265,1458878,09,21,111,0,111); 
-ALTER TABLE `cs2305.Patient_tel` ADD FOREIGN KEY(Pno) REFERENCES `cs2305.Patient`(Pno);   
+INSERT INTO `cs2305.Fee` VALUES(1457816,'02990101','2017-1-8 05:17:03',3265,1458878,09,161,111,0,111);  
 ALTER TABLE `cs2305.Dept` ADD FOREIGN KEY (ParentDeptNo) REFERENCES `cs2305.Dept` (DeptNo);
 ALTER TABLE `cs2305.Dept` ADD FOREIGN KEY (Manager) REFERENCES `cs2305.Doctor` (Dno);
 ALTER TABLE `cs2305.Doctor` ADD FOREIGN KEY (Ddeptno) REFERENCES `cs2305.Dept` (DeptNo);

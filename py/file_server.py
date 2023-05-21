@@ -44,6 +44,10 @@ CORS(app)
 def getTable():
     table=request.get_json()['table']
     return jsonify(DataBase().getTable(table))
+@app.route('/api/view',methods=['POST'])
+def getView():
+    view=request.get_json()['view']
+    return jsonify(DataBase().getView(view))
 @app.route('/api/update',methods=['POST'])
 def update():
     cmd=request.get_json()
