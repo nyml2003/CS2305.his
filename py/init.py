@@ -17,7 +17,7 @@ sql = """
 
 
 """
-cursor.execute(sql)
+print(cursor.execute(sql))
 conn.commit()
 ret = cursor.fetchall()
 cursor.close()
