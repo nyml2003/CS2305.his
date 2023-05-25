@@ -2,8 +2,32 @@ from dataBase import DataBase
 
 db=DataBase()
 sql = """
+create table `cs2305.User`(
+  uid int primary key AUTO_INCREMENT COMMENT '用户编号',
+  username varchar(20) not null UNIQUE COMMENT '用户名' ,
+  password varchar(20) not null COMMENT '密码',
+  role varchar(20) not null COMMENT '角色'
+) COMMENT '用户';
+INSERT INTO `cs2305.user` (username, password, role) VALUES ('admin','admin','admin');
+INSERT INTO `cs2305.user` (username, password, role) VALUES ('ptest','123','patient');
+INSERT INTO `cs2305.user` (username, password, role) VALUES ('dtest','123','doctor');
+INSERT INTO `cs2305.user` (uid,username, password, role) VALUES (4,'p1','123','patient');
+INSERT INTO `cs2305.user` (uid,username, password, role) VALUES (5,'p2','123','patient');
+INSERT INTO `cs2305.user` (uid,username, password, role) VALUES (6,'p3','123','patient');
+INSERT INTO `cs2305.user` (uid,username, password, role) VALUES (7,'p4','123','patient');
+INSERT INTO `cs2305.user` (uid,username, password, role) VALUES (8,'p5','123','patient');
+INSERT INTO `cs2305.user` (uid,username, password, role) VALUES (9,'p6','123','patient');
+INSERT INTO `cs2305.user` (uid,username, password, role) VALUES (10,'d1','123','doctor');
+INSERT INTO `cs2305.user` (uid,username, password, role) VALUES (11,'d2','123','doctor');
+INSERT INTO `cs2305.user` (uid,username, password, role) VALUES (12,'d3','123','doctor');
+INSERT INTO `cs2305.user` (uid,username, password, role) VALUES (13,'d4','123','doctor');
+INSERT INTO `cs2305.user` (uid,username, password, role) VALUES (14,'d5','123','doctor');
+INSERT INTO `cs2305.user` (uid,username, password, role) VALUES (15,'d6','123','doctor');
+INSERT INTO `cs2305.user` (uid,username, password, role) VALUES (16,'d7','123','doctor');
+INSERT INTO `cs2305.user` (uid,username, password, role) VALUES (17,'d8','123','doctor');
 create table `cs2305.Patient`(
  Pno int primary key COMMENT '患者编号',
+ uid int not null COMMENT '用户编号',
  Pname varchar(20) not null COMMENT '患者姓名',
  Pid varchar(20) not null COMMENT '身份证号',
  Pino varchar(20) not null COMMENT '社会保险号',
@@ -13,12 +37,12 @@ create table `cs2305.Patient`(
  Padd varchar(100) not null COMMENT '地址',
  Ptel varchar(20) not null COMMENT '电话号码'
 ) COMMENT '患者';
-INSERT INTO `cs2305.Patient` VALUES(161,'刘景','142201198702130061','1201676','6781121941','男','1987-2-13','新华路光源街',13946186669);
-INSERT INTO `cs2305.Patient` VALUES(181,'陈禄','142201196608190213','1204001','5461021938','男','1966-8-19','城建路茂源路',13774645067);
-INSERT INTO `cs2305.Patient` VALUES(201,'曾华','142201197803110234','0800920','1231111932','男','1978-3-11','新建路柳巷',13917291237);
-INSERT INTO `cs2305.Patient` VALUES(421,'傅伟相','142202199109230221','0700235','4901021947','男','1991-9-23','高新区西源大道',13917291237);
-INSERT INTO `cs2305.Patient` VALUES(481,'张珍','142201199206200321','1200432','3451121953','女','1992-6-20','西湖区南街',13716307270);
-INSERT INTO `cs2305.Patient` VALUES(501,'李秀','142203198803300432','0692015','3341111936','女','1988-3-30','泰山大道北路',15255382804 );
+INSERT INTO `cs2305.Patient` VALUES(161,4,'刘景','142201198702130061','1201676','6781121941','男','1987-2-13','新华路光源街',13946186669);
+INSERT INTO `cs2305.Patient` VALUES(181,5,'陈禄','142201196608190213','1204001','5461021938','男','1966-8-19','城建路茂源路',13774645067);
+INSERT INTO `cs2305.Patient` VALUES(201,6,'曾华','142201197803110234','0800920','1231111932','男','1978-3-11','新建路柳巷',13917291237);
+INSERT INTO `cs2305.Patient` VALUES(421,7,'傅伟相','142202199109230221','0700235','4901021947','男','1991-9-23','高新区西源大道',13917291237);
+INSERT INTO `cs2305.Patient` VALUES(481,8,'张珍','142201199206200321','1200432','3451121953','女','1992-6-20','西湖区南街',13716307270);
+INSERT INTO `cs2305.Patient` VALUES(501,9,'李秀','142203198803300432','0692015','3341111936','女','1988-3-30','泰山大道北路',15255382804 );
 CREATE TABLE `cs2305.Dept` (
     DeptNo INT PRIMARY KEY NOT NULL,
     DeptName VARCHAR(20) NOT NULL,
@@ -34,20 +58,21 @@ INSERT INTO `cs2305.Dept` VALUES (20, '社区医疗部', 00, 21);
 INSERT INTO `cs2305.Dept` VALUES (201, '家庭病床病区', 20, 73);
 CREATE TABLE `cs2305.Doctor` (
     Dno INT PRIMARY KEY,
+    uid int not null COMMENT '用户编号',
     Dname VARCHAR(20) NOT NULL,
     Dsex VARCHAR(20) NOT NULL,
     Dage INT NOT NULL,
     Ddeptno INT NOT NULL,
     Tno INT NOT NULL
 );
-INSERT INTO `cs2305.Doctor` VALUES (140, '郝亦柯', '男', 28, 102, 102);
-INSERT INTO `cs2305.Doctor` VALUES (21, '刘伟', '男', 43, 20, 104);
-INSERT INTO `cs2305.Doctor` VALUES (368, '罗晓', '女', 27, 102, 103);
-INSERT INTO `cs2305.Doctor` VALUES (73, '邓英超', '女', 43, 201, 105);
-INSERT INTO `cs2305.Doctor` VALUES (82, '杨勋', '男', 36, 101, 104);
-INSERT INTO `cs2305.Doctor` VALUES (153, '希何芊', '女', 39, 201, 104);
-INSERT INTO `cs2305.Doctor` VALUES (371, '季仁', '男', 30, 103, 102);
-INSERT INTO `cs2305.Doctor` VALUES (372, '钟炎', '男', 45, 101, 105);
+INSERT INTO `cs2305.Doctor` VALUES (140, 10,'郝亦柯', '男', 28, 102, 102);
+INSERT INTO `cs2305.Doctor` VALUES (21, 11,'刘伟', '男', 43, 20, 104);
+INSERT INTO `cs2305.Doctor` VALUES (368, 12,'罗晓', '女', 27, 102, 103);
+INSERT INTO `cs2305.Doctor` VALUES (73, 13,'邓英超', '女', 43, 201, 105);
+INSERT INTO `cs2305.Doctor` VALUES (82, 14,'杨勋', '男', 36, 101, 104);
+INSERT INTO `cs2305.Doctor` VALUES (153, 15,'希何芊', '女', 39, 201, 104);
+INSERT INTO `cs2305.Doctor` VALUES (371, 16,'季仁', '男', 30, 103, 102);
+INSERT INTO `cs2305.Doctor` VALUES (372, 17,'钟炎', '男', 45, 101, 105);
 create table `cs2305.Title`(
  Tno int primary key not null,
  Sno int not null,
@@ -204,7 +229,7 @@ INSERT INTO `cs2305.Fee` VALUES(1282170,'02994356','2016-7-22 10:10:03',7816,128
 INSERT INTO `cs2305.Fee` VALUES(1283265,'02996768','2016-7-23 10:59:42',2170,1283398,02,501,560,112,448);
 INSERT INTO `cs2305.Fee` VALUES(1283308,'02995687','2016-7-23 11:11:34',3308,1284041,05,201,17,3.4,13.6);
 INSERT INTO `cs2305.Fee` VALUES(1283523,'02997432','2016-7-23 02:01:05',3523,1284256,08,481,13,0,13);
-INSERT INTO `cs2305.Fee` VALUES(1457816,'02990101','2017-1-8 05:17:03',3265,1458878,09,161,111,0,111);  
+INSERT INTO `cs2305.Fee` VALUES(1457816,'02990101','2017-1-8 05:17:03',3265,1458878,09,161,111,0,111); 
 ALTER TABLE `cs2305.Dept` ADD FOREIGN KEY (ParentDeptNo) REFERENCES `cs2305.Dept` (DeptNo) ON DELETE CASCADE;
 ALTER TABLE `cs2305.Dept` ADD FOREIGN KEY (Manager) REFERENCES `cs2305.Doctor` (Dno) ON DELETE CASCADE;
 ALTER TABLE `cs2305.Doctor` ADD FOREIGN KEY (Ddeptno) REFERENCES `cs2305.Dept` (DeptNo) ON DELETE CASCADE;
@@ -228,6 +253,8 @@ ALTER TABLE `cs2305.Fee` ADD FOREIGN KEY(DGno) REFERENCES `cs2305.Diagnosis`(DGn
 ALTER TABLE `cs2305.Fee` ADD FOREIGN KEY(RMno) REFERENCES `cs2305.Recipe_Master`(RMno) ON DELETE CASCADE;
 ALTER TABLE `cs2305.Fee` ADD FOREIGN KEY(Cno) REFERENCES `cs2305.Cashier`(Cno) ON DELETE CASCADE;
 ALTER TABLE `cs2305.Fee` ADD FOREIGN KEY(Pno) REFERENCES `cs2305.Patient`(Pno) ON DELETE CASCADE;
+ALTER TABLE `cs2305.Doctor` ADD FOREIGN KEY (uid) REFERENCES `cs2305.User` (uid) ON DELETE CASCADE;
+ALTER TABLE `cs2305.Patient` ADD FOREIGN KEY (uid) REFERENCES `cs2305.User` (uid) ON DELETE CASCADE;
 """
 ret=db.execute(sql)
 print(ret)

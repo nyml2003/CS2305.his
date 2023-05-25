@@ -1,9 +1,11 @@
 from dataBase import DataBase 
 sql='''
+        ALTER TABLE `cs2305.Patient` DROP FOREIGN KEY `cs2305.patient_ibfk_1`;
         ALTER TABLE `cs2305.Dept` DROP FOREIGN KEY `cs2305.dept_ibfk_1`;
         ALTER TABLE `cs2305.Dept` DROP FOREIGN KEY `cs2305.dept_ibfk_2`;
         ALTER TABLE `cs2305.Doctor` DROP FOREIGN KEY `cs2305.doctor_ibfk_1`;
         ALTER TABLE `cs2305.Doctor` DROP FOREIGN KEY `cs2305.doctor_ibfk_2`;
+        ALTER TABLE `cs2305.Doctor` DROP FOREIGN KEY `cs2305.doctor_ibfk_3`;
         ALTER TABLE `cs2305.Title` DROP FOREIGN KEY `cs2305.title_ibfk_1`;
         ALTER TABLE `cs2305.Godown_Slave` DROP FOREIGN KEY `cs2305.godown_slave_ibfk_1`;
         ALTER TABLE `cs2305.Godown_Slave` DROP FOREIGN KEY `cs2305.godown_slave_ibfk_2`;
@@ -23,6 +25,7 @@ sql='''
         ALTER TABLE `cs2305.Fee` DROP FOREIGN KEY `cs2305.fee_ibfk_2`;
         ALTER TABLE `cs2305.Fee` DROP FOREIGN KEY `cs2305.fee_ibfk_3`;
         ALTER TABLE `cs2305.Fee` DROP FOREIGN KEY `cs2305.fee_ibfk_4`;
+        
 '''
 print(DataBase().execute(sql))
 sql='''

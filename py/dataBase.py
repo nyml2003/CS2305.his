@@ -16,10 +16,10 @@ class DataBase():
         try:
             self.cursor.execute(sql, params)
             self.conn.commit()
-            ret = {"error":"success","content":self.cursor.fetchall()}
+            ret = {"error":True,"content":self.cursor.fetchall()}
         except Exception as e:
             self.conn.rollback()
-            ret = {'error': str(e),"content":None}
+            ret = {'error': False,"content":{"error":str(e)}}
         finally:
             self.cursor.close()
             self.conn.close()
@@ -39,6 +39,15 @@ class DataBase():
     def insert(self,table,values):
         sql = f"INSERT INTO {table} VALUES ({','.join(['%s']*len(values))})"
         return self.execute(sql, values)
+    def login(self,username):
+        sql = f"SELECT * FROM `cs2305.user` WHERE username=%s"
+        return self.execute(sql, (username))
+    def register(self,username,password,role):
+        sql = f"INSERT INTO `cs2305.user` (username, password, role) VALUES (%s,%s,%s)"
+        return self.execute(sql, (username,password,role))
+    def search(self,table,col,value):
+        sql = f"SELECT * FROM {table} WHERE {col} LIKE %s"
+        return self.execute(sql, (value,))
     # def deleteAllTables(self):
     #     sql='''
     #     ALTER TABLE `cs2305.Dept` DROP FOREIGN KEY `cs2305.dept_ibfk_1`;
