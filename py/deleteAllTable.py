@@ -34,7 +34,6 @@ SHOW TABLES
 data=DataBase().execute(sql)
 tables = data["content"]
 print(tables)
-for table in tables:
-    
+for table in tables:    
     sql=f"DROP TABLE IF EXISTS `{list(table.values())[0]}`"
     print(DataBase().execute(sql))

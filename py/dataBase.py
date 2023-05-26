@@ -32,6 +32,7 @@ class DataBase():
         return self.execute(sql)
     def update(self, table, id, col, value,pk):
         sql = f"UPDATE {table} SET {col} = %s WHERE {pk} = %s"
+        print(sql)
         return self.execute(sql, (value, id))
     def delete(self,table,id,pk):
         sql = f"DELETE FROM {table} WHERE {pk} = %s"
@@ -45,9 +46,13 @@ class DataBase():
     def register(self,username,password,role):
         sql = f"INSERT INTO `cs2305.user` (username, password, role) VALUES (%s,%s,%s)"
         return self.execute(sql, (username,password,role))
+        
     def search(self,table,col,value):
-        sql = f"SELECT * FROM {table} WHERE {col} LIKE %s"
+        sql = f"SELECT * FROM `{table}` WHERE {col} LIKE %s"
         return self.execute(sql, (value,))
+    def guahao(self,table,values):
+        sql = f"INSERT INTO {table} (RFdept,RFdoctor,RFpatient,RFtime,RFnotes) VALUES ({','.join(['%s']*len(values))})"
+        return self.execute(sql, values)
     # def deleteAllTables(self):
     #     sql='''
     #     ALTER TABLE `cs2305.Dept` DROP FOREIGN KEY `cs2305.dept_ibfk_1`;

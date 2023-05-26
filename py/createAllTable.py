@@ -26,16 +26,16 @@ INSERT INTO `cs2305.user` (uid,username, password, role) VALUES (15,'d6','123','
 INSERT INTO `cs2305.user` (uid,username, password, role) VALUES (16,'d7','123','doctor');
 INSERT INTO `cs2305.user` (uid,username, password, role) VALUES (17,'d8','123','doctor');
 create table `cs2305.Patient`(
- Pno int primary key COMMENT '患者编号',
+ Pno int AUTO_INCREMENT primary key COMMENT '患者编号',
  uid int not null COMMENT '用户编号',
- Pname varchar(20) not null COMMENT '患者姓名',
- Pid varchar(20) not null COMMENT '身份证号',
- Pino varchar(20) not null COMMENT '社会保险号',
- Pmno varchar(20) not null COMMENT '医疗卡识别号',
- Psex varchar(20) not null COMMENT '性别',
- Pbd date not null COMMENT '出生日期',
- Padd varchar(100) not null COMMENT '地址',
- Ptel varchar(20) not null COMMENT '电话号码'
+ Pname varchar(20)  COMMENT '患者姓名',
+ Pid varchar(20)  COMMENT '身份证号',
+ Pino varchar(20)  COMMENT '社会保险号',
+ Pmno varchar(20) COMMENT '医疗卡识别号',
+ Psex varchar(20)  COMMENT '性别',
+ Pbd date  COMMENT '出生日期',
+ Padd varchar(100)  COMMENT '地址',
+ Ptel varchar(20)  COMMENT '电话号码'
 ) COMMENT '患者';
 INSERT INTO `cs2305.Patient` VALUES(161,4,'刘景','142201198702130061','1201676','6781121941','男','1987-2-13','新华路光源街',13946186669);
 INSERT INTO `cs2305.Patient` VALUES(181,5,'陈禄','142201196608190213','1204001','5461021938','男','1966-8-19','城建路茂源路',13774645067);
@@ -57,13 +57,13 @@ INSERT INTO `cs2305.Dept` VALUES (103, '门内三诊室', 10, 371);
 INSERT INTO `cs2305.Dept` VALUES (20, '社区医疗部', 00, 21);
 INSERT INTO `cs2305.Dept` VALUES (201, '家庭病床病区', 20, 73);
 CREATE TABLE `cs2305.Doctor` (
-    Dno INT PRIMARY KEY,
+    Dno INT AUTO_INCREMENT PRIMARY KEY,
     uid int not null COMMENT '用户编号',
-    Dname VARCHAR(20) NOT NULL,
-    Dsex VARCHAR(20) NOT NULL,
-    Dage INT NOT NULL,
-    Ddeptno INT NOT NULL,
-    Tno INT NOT NULL
+    Dname VARCHAR(20) ,
+    Dsex VARCHAR(20) ,
+    Dage INT ,
+    Ddeptno INT ,
+    Tno INT 
 );
 INSERT INTO `cs2305.Doctor` VALUES (140, 10,'郝亦柯', '男', 28, 102, 102);
 INSERT INTO `cs2305.Doctor` VALUES (21, 11,'刘伟', '男', 43, 20, 104);
@@ -198,14 +198,14 @@ INSERT INTO `cs2305.Recipe_Detail` VALUES(32,1458878,315189,360,4,'盒');
 INSERT INTO `cs2305.Recipe_Detail` VALUES(47,1284041,315977,14,1,'片');
 INSERT INTO `cs2305.Recipe_Detail` VALUES(89,1282317,316910,2.5,10,'粒');
 create table `cs2305.Register_Form`(
- RFno int not null primary key,
- RFdept int not null,
- RFdoctor int not null,
- RFpatient int not null,
- RFcashier int not null,
- RFtime DATETIME not null,
- RFvisittime DATETIME not null,
- RFfee DECIMAL(12,4) not null,
+ RFno int not null AUTO_INCREMENT primary key ,
+ RFdept int ,
+ RFdoctor int ,
+ RFpatient int ,
+ RFcashier int ,
+ RFtime DATETIME ,
+ RFvisittime DATETIME ,
+ RFfee DECIMAL(12,4) ,
  RFnotes varchar(20)
 );
 INSERT INTO `cs2305.Register_Form` VALUES(13,20,73,481,01,'2016-7-11 06:12:09','2016-7-11 08:00:00',5,NULL);
