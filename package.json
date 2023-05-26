@@ -1,6 +1,6 @@
 {
   "name": "cs2305.his",
-  "version": "1.0.3",
+  "version": "2023.5.26",
   "description": "This is a Hospital Information System programmed by 蒋钦禹",
   "main": "main.js",
   "scripts": {

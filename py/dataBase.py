@@ -20,6 +20,7 @@ class DataBase():
         except Exception as e:
             self.conn.rollback()
             ret = {'error': False,"content":{"error":str(e)}}
+            print(ret)
         finally:
             self.cursor.close()
             self.conn.close()
@@ -32,7 +33,6 @@ class DataBase():
         return self.execute(sql)
     def update(self, table, id, col, value,pk):
         sql = f"UPDATE {table} SET {col} = %s WHERE {pk} = %s"
-        print(sql)
         return self.execute(sql, (value, id))
     def delete(self,table,id,pk):
         sql = f"DELETE FROM {table} WHERE {pk} = %s"
